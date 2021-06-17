@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using RestWithASP_NET5.Model.Context;
 
 namespace RestWithASP_NET5.Services.Impl
 {
     public class PersonServiceImpl : IPersonService
     {
-        private volatile int count;
+        private MySQLContext _context;
+
+        public PersonServiceImpl(MySQLContext context)
+        {
+            _context = context;
+        }
 
         public Person Create(Person person)
         {
@@ -22,14 +28,7 @@ namespace RestWithASP_NET5.Services.Impl
 
         public List<Person> FindAll()
         {
-            List<Person> persons = new List<Person>();
-            for(int i = 0; i < 8; i++)
-            {
-                Person person = MockPerson();
-                persons.Add(person);
-            }
-
-            return persons;
+            return _context.Persons.ToList();
         }
 
         public Person FindById(long id)
@@ -47,24 +46,6 @@ namespace RestWithASP_NET5.Services.Impl
         public Person Update(Person person)
         {
             return person;
-        }
-
-        private Person MockPerson()
-        {
-            long id = IncrementAndGet();
-            return new Person
-            {
-                Id = id,
-                FirstName = $"Person Name {id}",
-                LastName = $"Person LastName {id}",
-                Address = "São Paulo - SP - Brasil",
-                Gender = "Male"
-            };
-        }
-
-        private long IncrementAndGet()
-        {
-            return Interlocked.Increment(ref count);
         }
     }
 }
