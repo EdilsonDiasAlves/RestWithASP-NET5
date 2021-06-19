@@ -1,18 +1,16 @@
 ﻿using RestWithASP_NET5.Model;
+using RestWithASP_NET5.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Threading;
-using RestWithASP_NET5.Model.Context;
 
-namespace RestWithASP_NET5.Services.Impl
+namespace RestWithASP_NET5.Repository.Impl
 {
-    public class PersonServiceImpl : IPersonService
+    public class PersonRepositoryImpl : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonServiceImpl(MySQLContext context)
+        public PersonRepositoryImpl(MySQLContext context)
         {
             _context = context;
         }
@@ -59,7 +57,7 @@ namespace RestWithASP_NET5.Services.Impl
 
         public Person Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
+            if (!Exists(person.Id)) return null;
             var result = _context.Persons.SingleOrDefault<Person>(p => p.Id.Equals(person.Id));
 
             if(result != null)
@@ -77,7 +75,7 @@ namespace RestWithASP_NET5.Services.Impl
             return person;
         }
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.Persons.Any(p => p.Id.Equals(id));
         }
