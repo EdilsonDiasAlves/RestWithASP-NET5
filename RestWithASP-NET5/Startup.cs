@@ -53,6 +53,9 @@ namespace RestWithASP_NET5
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 
+            services.AddScoped<IBookBusiness, BookBusinessImpl>();
+            services.AddScoped<IBookRepository, BookRepositoryImpl>();
+
             // Swagger configuration
             services.AddSwaggerGen(c =>
             {
