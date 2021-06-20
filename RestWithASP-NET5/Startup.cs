@@ -9,6 +9,7 @@ using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Impl;
 using RestWithASP_NET5.Model.Context;
 using RestWithASP_NET5.Repository;
+using RestWithASP_NET5.Repository.Generic;
 using RestWithASP_NET5.Repository.Impl;
 using Serilog;
 using System;
@@ -54,7 +55,8 @@ namespace RestWithASP_NET5
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 
             services.AddScoped<IBookBusiness, BookBusinessImpl>();
-            services.AddScoped<IBookRepository, BookRepositoryImpl>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             // Swagger configuration
             services.AddSwaggerGen(c =>

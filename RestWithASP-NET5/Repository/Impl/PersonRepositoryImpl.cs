@@ -31,7 +31,7 @@ namespace RestWithASP_NET5.Repository.Impl
                 _context.Add(person);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
