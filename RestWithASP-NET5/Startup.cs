@@ -8,9 +8,7 @@ using Microsoft.OpenApi.Models;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Impl;
 using RestWithASP_NET5.Model.Context;
-using RestWithASP_NET5.Repository;
 using RestWithASP_NET5.Repository.Generic;
-using RestWithASP_NET5.Repository.Impl;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -51,11 +49,12 @@ namespace RestWithASP_NET5
             services.AddApiVersioning();
 
             // Dependency injection
-            services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
-            services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 
+            // Business Layer
+            services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IBookBusiness, BookBusinessImpl>();
 
+            // Repository Layer
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             // Swagger configuration

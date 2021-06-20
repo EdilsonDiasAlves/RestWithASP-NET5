@@ -20,9 +20,6 @@ namespace RestWithASP_NET5.Repository.Generic
             _dataSet = context.Set<T>();
         }
 
-
-
-
         public List<T> FindAll()
         {
             return _dataSet.ToList();
