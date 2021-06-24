@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestWithASP_NET5.Business;
-using RestWithASP_NET5.Model;
+using RestWithASP_NET5.Data.VO;
 
 namespace RestWithASP_NET5.Controllers
 {
@@ -11,68 +11,47 @@ namespace RestWithASP_NET5.Controllers
     public class BookController : ControllerBase
     {
         private readonly ILogger<BookController> _logger;
-        private IBookBusiness _bookBusiness;
+        private IBookBusiness _BookVOBusiness;
 
-        public BookController(ILogger<BookController> logger, IBookBusiness bookBusiness)
+        public BookController(ILogger<BookController> logger, IBookBusiness BookVOBusiness)
         {
             _logger = logger;
-            _bookBusiness = bookBusiness;
+            _BookVOBusiness = BookVOBusiness;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_bookBusiness.FindAll());
+            return Ok(_BookVOBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            Book book = _bookBusiness.FindById(id);
-            if (book == null) return NotFound();
-            return Ok(book);
+            BookVO BookVO = _BookVOBusiness.FindById(id);
+            if (BookVO == null) return NotFound();
+            return Ok(BookVO);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO BookVO)
         {
-            if (book == null) return BadRequest();
-            return Ok(_bookBusiness.Create(book));
+            if (BookVO == null) return BadRequest();
+            return Ok(_BookVOBusiness.Create(BookVO));
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO BookVO)
         {
-            if (book == null) return BadRequest();
-            return Ok(_bookBusiness.Update(book));
+            if (BookVO == null) return BadRequest();
+            return Ok(_BookVOBusiness.Update(BookVO));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            _bookBusiness.Delete(id);
+            _BookVOBusiness.Delete(id);
             return NoContent();
-        }
-
-        private bool IsNumeric(string strNumber)
-        {
-            double number;
-            bool isNumber = double.TryParse(
-                strNumber, 
-                System.Globalization.NumberStyles.Any, 
-                System.Globalization.NumberFormatInfo.InvariantInfo, 
-                out number);
-            return isNumber;
-        }
-
-        private decimal ConvertToDecimal(string strValue)
-        {
-            decimal decimalValue;
-            if (decimal.TryParse(strValue, out decimalValue))
-            {
-                return decimalValue;
-            }
-            return 0;
         }
     }
 }
