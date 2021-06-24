@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Impl;
@@ -44,6 +45,16 @@ namespace RestWithASP_NET5
             {
                 MigrateDatase(connection);
             }
+
+            // Content-Negotiation (json or xml - Microsoft.AspNetCore.Mvc.Formatters.Xml)
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            })
+            .AddXmlSerializerFormatters();
 
             // AspNetCore.Mvc.Versioning configuration
             services.AddApiVersioning();
