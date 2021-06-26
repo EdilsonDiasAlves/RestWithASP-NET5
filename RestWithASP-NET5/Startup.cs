@@ -8,6 +8,8 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Impl;
+using RestWithASP_NET5.Hypermedia.Enricher;
+using RestWithASP_NET5.Hypermedia.Filters;
 using RestWithASP_NET5.Model.Context;
 using RestWithASP_NET5.Repository.Generic;
 using Serilog;
@@ -56,6 +58,12 @@ namespace RestWithASP_NET5
             })
             .AddXmlSerializerFormatters();
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+
+            services.AddSingleton(filterOptions);
+
             // AspNetCore.Mvc.Versioning configuration
             services.AddApiVersioning();
 
@@ -94,6 +102,7 @@ namespace RestWithASP_NET5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
 
