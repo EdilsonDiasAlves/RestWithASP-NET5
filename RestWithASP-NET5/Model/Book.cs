@@ -13,7 +13,7 @@ namespace RestWithASP_NET5.Model
         [Column("author")]
         public string Author { get; set; }
         [Column("launch_date")]
-        public DateTime LauchDate { get; set; }
+        public DateTime LaunchDate { get; set; }
         [Column("price")]
         public decimal Price { get; set; }
         [Column("title")]

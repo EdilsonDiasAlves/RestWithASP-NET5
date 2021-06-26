@@ -15,7 +15,7 @@ namespace RestWithASP_NET5.Data.VO
 
         public decimal Price { get; set; }
 
-        public DateTime LauchDate { get; set; }
+        public DateTime LaunchDate { get; set; }
         public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
 
     }

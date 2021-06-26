@@ -14,7 +14,7 @@ namespace RestWithASP_NET5.Data.Converter.Impl
             {
                 Id = origin.Id,
                 Author = origin.Author,
-                LauchDate = origin.LauchDate,
+                LaunchDate = origin.LaunchDate,
                 Price = origin.Price,
                 Title = origin.Title,
             };
@@ -33,7 +33,7 @@ namespace RestWithASP_NET5.Data.Converter.Impl
             {
                 Id = origin.Id,
                 Author = origin.Author,
-                LauchDate = origin.LauchDate,
+                LaunchDate = origin.LaunchDate,
                 Price = origin.Price,
                 Title = origin.Title,
             };
