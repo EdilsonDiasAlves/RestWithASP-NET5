@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -79,7 +80,18 @@ namespace RestWithASP_NET5
             // Swagger configuration
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestWithASP_NET5", Version = "v1" });
+                c.SwaggerDoc("v1", 
+                    new OpenApiInfo 
+                    {
+                        Title = "Rest API's from 0 to Azure with ASP.NET Core 5 and Docker", 
+                        Version = "v1",
+                        Description = "API Restful with all Rest Layers - HATEOAS included",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Edilson Moizinho",
+                            Url = new Uri("https://github.com/edilsondiasalves")
+                        }
+                    });
             });
         }
 
@@ -89,9 +101,16 @@ namespace RestWithASP_NET5
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestWithASP_NET5 v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "Rest API's from 0 to Azure with ASP.NET Core 5 and Docker");
+            });
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
 
             app.UseHttpsRedirection();
 
