@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace RestWithASP_NET5.Business.Impl
 {
-    public class BookBusinessImpl : IBookBusiness
+    public class BookBusiness : IBookBusiness
     {
         private readonly IRepository<Book> _repository;
         private readonly BookConverter _converter;
 
-        public BookBusinessImpl(IRepository<Book> repository)
+        public BookBusiness(IRepository<Book> repository)
         {
             _repository = repository;
             _converter = new BookConverter();

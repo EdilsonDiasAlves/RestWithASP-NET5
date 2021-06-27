@@ -6,13 +6,13 @@ using System.Collections.Generic;
 
 namespace RestWithASP_NET5.Business.Impl
 {
-    public class PersonBusinessImpl : IPersonBusiness
+    public class PersonBusiness : IPersonBusiness
     {
         private readonly IRepository<Person> _repository;
 
         private readonly PersonConverter _converter;
 
-        public PersonBusinessImpl(IRepository<Person> repository)
+        public PersonBusiness(IRepository<Person> repository)
         {
             _repository = repository;
             _converter = new PersonConverter();
