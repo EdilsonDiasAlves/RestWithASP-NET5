@@ -28,6 +28,15 @@ namespace RestWithASP_NET5.Repository.Impl
             return _context.Users.SingleOrDefault(u => (u.UserName == username));
         }
 
+        public bool RevokeToken(string username)
+        {
+            var user = _context.Users.SingleOrDefault(u => (u.UserName == username));
+            if (user is null) return false;
+            user.RefreshToken = null;
+            _context.SaveChanges();
+            return true;
+        }
+
         public User RefreshUserInfo(User user)
         {
             if (!_context.Users.Any(u => u.Id.Equals(user.Id))) return null;
