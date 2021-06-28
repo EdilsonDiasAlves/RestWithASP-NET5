@@ -70,6 +70,17 @@ namespace RestWithASP_NET5.Controllers
             return Ok(_PersonBusiness.Update(PersonVO));
         }
 
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Patch(long id)
+        {
+            var person = _PersonBusiness.Disable(id);
+            return Ok(person);
+        }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

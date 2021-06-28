@@ -132,6 +132,7 @@ namespace RestWithASP_NET5
 
             // Repository Layer (Specific - User login through token management)
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             // Authentication - Token management
             services.AddTransient<ITokenService, TokenService>();
