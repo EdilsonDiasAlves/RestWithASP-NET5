@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
@@ -5,17 +7,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Business.Impl;
+using RestWithASP_NET5.Configurations;
 using RestWithASP_NET5.Hypermedia.Enricher;
 using RestWithASP_NET5.Hypermedia.Filters;
 using RestWithASP_NET5.Model.Context;
+using RestWithASP_NET5.Repository;
 using RestWithASP_NET5.Repository.Generic;
+using RestWithASP_NET5.Repository.Impl;
+using RestWithASP_NET5.Services;
+using RestWithASP_NET5.Services.Impl;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace RestWithASP_NET5
 {
@@ -34,10 +44,52 @@ namespace RestWithASP_NET5
                 .CreateLogger();
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Authentication and authorization configuration
+            var tokenConfigurations = new TokenConfiguration();
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                Configuration.GetSection("TokenConfigurations")
+            )
+                .Configure(tokenConfigurations);
+
+            services.AddSingleton(tokenConfigurations);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = tokenConfigurations.Issuer,
+                        ValidAudience = tokenConfigurations.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+                    };
+                });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
+            // CORS configuration
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             services.AddControllers();
 
             // DB Context configuration
@@ -71,11 +123,18 @@ namespace RestWithASP_NET5
             // Dependency injection
 
             // Business Layer
-            services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
-            services.AddScoped<IBookBusiness, BookBusinessImpl>();
+            services.AddScoped<IPersonBusiness, PersonBusiness>();
+            services.AddScoped<IBookBusiness, BookBusiness>();
+            services.AddScoped<ILoginBusiness, LoginBusiness>();
 
-            // Repository Layer
+            // Repository Layer (Generic)
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+
+            // Repository Layer (Specific - User login through token management)
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Authentication - Token management
+            services.AddTransient<ITokenService, TokenService>();
 
             // Swagger configuration
             services.AddSwaggerGen(c =>
@@ -115,6 +174,9 @@ namespace RestWithASP_NET5
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Enabling cors - must be after UseHttpsRedirection, UseRouting methods and before UseEndpoints method.
+            app.UseCors();
 
             app.UseAuthorization();
 
