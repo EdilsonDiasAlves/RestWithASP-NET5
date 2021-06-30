@@ -1,8 +1,6 @@
 ﻿using RestWithASP_NET5.Data.Converter.Impl;
 using RestWithASP_NET5.Data.VO;
-using RestWithASP_NET5.Model;
 using RestWithASP_NET5.Repository;
-using RestWithASP_NET5.Repository.Generic;
 using System.Collections.Generic;
 
 namespace RestWithASP_NET5.Business.Impl
@@ -26,6 +24,11 @@ namespace RestWithASP_NET5.Business.Impl
         public PersonVO FindById(long id)
         {
             return _converter.Parse(_repository.FindById(id));
+        }
+
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _converter.Parse(_repository.FindByName(firstName, lastName));
         }
 
         public PersonVO Create(PersonVO personVO)
@@ -53,6 +56,6 @@ namespace RestWithASP_NET5.Business.Impl
             return _converter.Parse(personEntity);
         }
 
-
+        
     }
 }

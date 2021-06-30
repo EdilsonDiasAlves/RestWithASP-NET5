@@ -6,6 +6,7 @@ using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Data.VO;
 using RestWithASP_NET5.Hypermedia.Filters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestWithASP_NET5.Controllers
 {
@@ -43,9 +44,22 @@ namespace RestWithASP_NET5.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
-            PersonVO PersonVO = _PersonBusiness.FindById(id);
+            var PersonVO = _PersonBusiness.FindById(id);
             if (PersonVO == null) return NotFound();
             return Ok(PersonVO);
+        }
+
+        [HttpGet("find-by-name")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PersonVO))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            List<PersonVO> persons = _PersonBusiness.FindByName(firstName, lastName);
+            if (persons == null || !persons.Any()) return NotFound();
+            return Ok(persons);
         }
 
         [HttpPost]
