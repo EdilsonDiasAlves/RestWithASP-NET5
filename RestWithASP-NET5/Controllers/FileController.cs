@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestWithASP_NET5.Business;
 using RestWithASP_NET5.Data.VO;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace RestWithASP_NET5.Controllers
@@ -20,7 +21,26 @@ namespace RestWithASP_NET5.Controllers
         {
             _fileBusiness = fileBusiness;
         }
-        
+
+        [HttpGet("download-file/{fileName}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(byte[]))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/octet-stream")]
+        public async Task<IActionResult> DownloadFile(string fileName)
+        {
+            byte[] buffer = _fileBusiness.GetFile(fileName);
+            if(buffer != null)
+            {
+                HttpContext.Response.ContentType = $"application/{Path.GetExtension(fileName).Replace(".", "")}";
+                HttpContext.Response.Headers.Add("content-length", buffer.Length.ToString());
+                await HttpContext.Response.Body.WriteAsync(buffer, 0, buffer.Length);
+            }
+
+            return new ContentResult();
+        }
+
         [HttpPost("upload-file")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileDetailVO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

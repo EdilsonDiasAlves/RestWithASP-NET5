@@ -660,6 +660,47 @@
 			"name": "File",
 			"item": [
 				{
+					"name": "Download File",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/file/v{{version}}/download-file/aspnetcore-architecture.pdf",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"file",
+								"v{{version}}",
+								"download-file",
+								"aspnetcore-architecture.pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Upload File",
 					"request": {
 						"method": "POST",
@@ -697,6 +738,52 @@
 								"file",
 								"v{{version}}",
 								"upload-file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Multiple Files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/edilsondiasalves/Área de Trabalho/artefatos/aspnetcore-architecture.jpg",
+										"/C:/Users/edilsondiasalves/Área de Trabalho/artefatos/aspnetcore-architecture.pdf"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/file/v{{version}}/upload-multiple-files",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"file",
+								"v{{version}}",
+								"upload-multiple-files"
 							]
 						}
 					},

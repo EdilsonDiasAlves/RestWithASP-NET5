@@ -19,7 +19,8 @@ namespace RestWithASP_NET5.Business.Impl
 
         public byte[] GetFile(string filename)
         {
-            throw new System.NotImplementedException();
+            var filePath = _basePath + filename;
+            return File.ReadAllBytes(filePath);
         }
 
         public async Task<List<FileDetailVO>> SaveFilesToDisk(IList<IFormFile> files)
