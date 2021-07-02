@@ -25,15 +25,16 @@ namespace RestWithASP_NET5.Controllers
             _PersonBusiness = personBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("{sortDirection}/{pageSize}/{page}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PersonVO>))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] string name, 
+            string sortDirection, int pageSize, int page)
         {
-            return Ok(_PersonBusiness.FindAll());
+            return Ok(_PersonBusiness.FindWithPagedSearch(name, sortDirection, pageSize, page));
         }
 
         [HttpGet("{id}")]
