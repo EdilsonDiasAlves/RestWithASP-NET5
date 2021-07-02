@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -122,10 +123,14 @@ namespace RestWithASP_NET5
 
             // Dependency injection
 
+            // Context to file operations
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             // Business Layer
             services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IBookBusiness, BookBusiness>();
             services.AddScoped<ILoginBusiness, LoginBusiness>();
+            services.AddScoped<IFileBusiness, FileBusiness>();
 
             // Repository Layer (Generic)
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));

@@ -25,7 +25,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}",
+							"raw": "https://localhost:44300/api/person/v{{version}}/asc/10/1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -34,7 +34,10 @@
 							"path": [
 								"api",
 								"person",
-								"v{{version}}"
+								"v{{version}}",
+								"asc",
+								"10",
+								"1"
 							]
 						}
 					},
@@ -74,6 +77,49 @@
 					"response": []
 				},
 				{
+					"name": "FindByName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44300/api/person/v{{version}}/find-by-name?firstName=Marie&lastName=Curie",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"person",
+								"v{{version}}",
+								"find-by-name"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "Marie"
+								},
+								{
+									"key": "lastName",
+									"value": "Curie"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create",
 					"request": {
 						"method": "POST",
@@ -96,7 +142,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Alberto\",\r\n    \"lastName\": \"Einsten\",\r\n    \"address\": \"Ulm - Germany\",\r\n    \"gender\": \"Male\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Carl\",\r\n    \"lastName\": \"Sagan\",\r\n    \"address\": \"Brooklyn - United States\",\r\n    \"gender\": \"Male\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,6 +239,39 @@
 								"person",
 								"v{{version}}",
 								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disable",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44300/api/person/v{{version}}/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"person",
+								"v{{version}}",
+								"4"
 							]
 						}
 					},
@@ -570,6 +649,54 @@
 								"auth",
 								"v{{version}}",
 								"revoke"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "Upload File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/edilsondiasalves/Área de Trabalho/course-certificates-SCRUMstudy_Edilson Moizinho.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/file/v{{version}}/upload-file",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"file",
+								"v{{version}}",
+								"upload-file"
 							]
 						}
 					},
