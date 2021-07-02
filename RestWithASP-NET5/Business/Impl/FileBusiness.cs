@@ -22,9 +22,15 @@ namespace RestWithASP_NET5.Business.Impl
             throw new System.NotImplementedException();
         }
 
-        public Task<List<FileDetailVO>> SaveFilesToDisk(IList<IFormFile> files)
+        public async Task<List<FileDetailVO>> SaveFilesToDisk(IList<IFormFile> files)
         {
-            throw new System.NotImplementedException();
+            List<FileDetailVO> listFiles = new List<FileDetailVO>();
+            foreach (var file in files)
+            {
+                listFiles.Add(await SaveFileToDisk(file));
+            }
+
+            return listFiles;
         }
 
         public async Task<FileDetailVO> SaveFileToDisk(IFormFile file)
