@@ -97,10 +97,13 @@ namespace RestWithASP_NET5
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
-            if (Environment.IsDevelopment())
-            {
-                MigrateDatase(connection);
-            }
+            /*
+                if (Environment.IsDevelopment())
+                {
+                    // Execute the db initialization (construction and data insertion) through Evolve
+                    MigrateDatase(connection);
+                }
+            */
 
             // Content-Negotiation (json or xml - Microsoft.AspNetCore.Mvc.Formatters.Xml)
             services.AddMvc(options =>
