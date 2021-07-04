@@ -1,4 +1,4 @@
-﻿CREATE TABLE `users` (
+CREATE TABLE `users` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`user_name` VARCHAR(50) NOT NULL DEFAULT '0',
 	`password` VARCHAR(130) NOT NULL DEFAULT '0',
