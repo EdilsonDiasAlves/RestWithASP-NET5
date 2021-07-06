@@ -25,12 +25,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}/asc/10/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}/asc/10/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -60,12 +58,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -93,12 +89,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}/find-by-name?firstName=Marie&lastName=Curie",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}/find-by-name?firstName=Marie&lastName=Curie",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -150,12 +144,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -196,12 +188,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -228,12 +218,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/person/v{{version}}/11",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/person/v{{version}}/11",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"person",
@@ -299,12 +287,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/book/v{{version}}",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/book/v{{version}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"book",
@@ -331,12 +317,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/book/v{{version}}/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/book/v{{version}}/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"book",
@@ -378,12 +362,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/book/v{{version}}",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/book/v{{version}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"book",
@@ -424,12 +406,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/book/v{{version}}",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/book/v{{version}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"book",
@@ -456,12 +436,10 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44300/api/book/v{{version}}/16",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/book/v{{version}}/16",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"book",
@@ -511,7 +489,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"edilson\",\r\n    \"password\":\"admin123\"\r\n}",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,12 +497,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/auth/v{{version}}/signin",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/auth/v{{version}}/signin",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"auth",
@@ -577,12 +553,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/auth/v{{version}}/refresh",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/auth/v{{version}}/refresh",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"auth",
@@ -638,12 +612,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/auth/v{{version}}/revoke",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/auth/v{{version}}/revoke",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"auth",
@@ -683,12 +655,10 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/file/v{{version}}/download-file/aspnetcore-architecture.pdf",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/file/v{{version}}/download-file/aspnetcore-architecture.pdf",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"file",
@@ -727,12 +697,10 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/file/v{{version}}/upload-file",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/file/v{{version}}/upload-file",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"file",
@@ -773,12 +741,10 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost:44300/api/file/v{{version}}/upload-multiple-files",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/file/v{{version}}/upload-multiple-files",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "44300",
 							"path": [
 								"api",
 								"file",
